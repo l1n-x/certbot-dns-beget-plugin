@@ -1,0 +1,90 @@
+[build-system]
+requires = ["poetry-core>=2.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+name = "certbot-dns-beget-plugin"
+version = "1.0.0"
+description = "Certbot DNS plugin for Beget to automate Let's Encrypt certificate issuance with the DNS challenge"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Roman Sarkisyan" }]
+requires-python = ">=3.10"
+keywords = ["certbot", "letsencrypt", "acme", "dns", "beget"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Plugins",
+    "Intended Audience :: System Administrators",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Internet :: Name Service (DNS)",
+    "Topic :: Security",
+    "Topic :: System :: Systems Administration",
+]
+dependencies = [
+    "certbot>=2.0",
+    "requests>=2.20",
+]
+
+[project.urls]
+Homepage = "https://github.com/l1n-x/certbot-dns-beget-plugin"
+Repository = "https://github.com/l1n-x/certbot-dns-beget-plugin.git"
+Issues = "https://github.com/l1n-x/certbot-dns-beget-plugin/issues"
+Changelog = "https://github.com/l1n-x/certbot-dns-beget-plugin/blob/master/CHANGELOG.md"
+
+[project.entry-points."certbot.plugins"]
+dns-beget-plugin = "certbot_dns_beget_plugin.authenticator:Authenticator"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1",
+    "pytest-cov>=7.1",
+    "ruff>=0.17",
+]
+
+[tool.poetry]
+packages = [{ include = "certbot_dns_beget_plugin" }]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["--cov", "--cov-report=term-missing"]
+
+[tool.coverage.run]
+source = ["certbot_dns_beget_plugin"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+skip_covered = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "UP",   # pyupgrade
+    "SIM",  # flake8-simplify
+    "RUF",  # ruff-specific rules
+]
+
+[tool.ruff.lint.isort]
+force-single-line = true
+known-first-party = ["certbot_dns_beget_plugin", "fake_beget"]
+
+[tool.ruff.format]
+quote-style = "single"
+

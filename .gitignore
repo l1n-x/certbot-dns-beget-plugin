@@ -1,0 +1,13 @@
+.env
+.venv
+.idea
+.vscode
+*.egg-info
+build
+dist
+*__pycache__*
+.coverage
+htmlcov
+.pytest_cache
+.ruff_cache
+beget.ini
